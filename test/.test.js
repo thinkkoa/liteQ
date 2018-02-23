@@ -3,7 +3,7 @@
  * @Date: 2018-02-09 16:35:40 
  * @Copyright (c) - <richenlin(at)gmail.com>
  * @Last Modified by: richen
- * @Last Modified time: 2018-02-23 11:57:51
+ * @Last Modified time: 2018-02-23 15:39:07
  */
 const helper = require('../lib/helper.js');
 const liteQ = require('../index.js');
@@ -20,7 +20,7 @@ class user extends liteQ {
                 primaryKey: true
             }
         };
-        this.modelName = 'consumers';
+        this.modelName = 'user';
         this.pk = 'id';
         // 数据验证
         this.validations = {};
@@ -29,11 +29,11 @@ class user extends liteQ {
 process.env.NODE_ENV = 'development';
 const model = new user({
     db_type: 'postgresql',
-    db_host: '192.168.0.155',
+    db_host: '127.0.0.1',
     db_port: 5432,
-    db_name: 'kong',
-    db_user: 'kong',
-    db_pwd: '',
+    db_name: 'test',
+    db_user: 'root',
+    db_pwd: 'richenlin',
     db_prefix: ''
 });
 let now = Date.now(), ss = 0;
