@@ -3,16 +3,13 @@
  * @Date: 2018-02-09 16:35:40 
  * @Copyright (c) - <richenlin(at)gmail.com>
  * @Last Modified by: richen
- * @Last Modified time: 2018-02-23 15:39:07
+ * @Last Modified time: 2018-02-23 19:29:50
  */
 const helper = require('../lib/helper.js');
 const liteQ = require('../index.js');
 
 class user extends liteQ {
     init(config){
-        super.init(config);
-        // 是否开启迁移(migrate方法可用)
-        this.safe = true;
         // 数据表字段信息
         this.fields = {
             id: {
@@ -21,20 +18,26 @@ class user extends liteQ {
             }
         };
         this.modelName = 'user';
-        this.pk = 'id';
-        // 数据验证
-        this.validations = {};
     }
 }
 process.env.NODE_ENV = 'development';
+// const model = new user({
+//     db_type: 'postgresql',
+//     db_host: '127.0.0.1',
+//     db_port: 5432,
+//     db_name: 'test',
+//     db_user: 'root',
+//     db_pwd: 'richenlin',
+//     db_prefix: ''
+// });
 const model = new user({
-    db_type: 'postgresql',
+    db_type: 'mysql',
     db_host: '127.0.0.1',
-    db_port: 5432,
+    db_port: 3306,
     db_name: 'test',
     db_user: 'root',
     db_pwd: 'richenlin',
-    db_prefix: ''
+    db_prefix: 'think_'
 });
 let now = Date.now(), ss = 0;
  
