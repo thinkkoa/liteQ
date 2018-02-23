@@ -3,7 +3,7 @@
  * @Date: 2018-01-31 14:07:54 
  * @Copyright (c) - <richenlin(at)gmail.com>
  * @Last Modified by: richen
- * @Last Modified time: 2018-02-23 11:46:21
+ * @Last Modified time: 2018-02-23 16:32:33
  */
 
 global.Promise = require('bluebird');
@@ -533,6 +533,9 @@ class liteQ {
      */
     async transaction(fn) {
         this.instance = await this.getInstance(true);
+        if (!this.instance.startTrans){
+            return this.error('Adapter is not support transaction');
+        }
         try {
             await this.instance.startTrans();
             let result = await helper.thinkco(fn(this.instance));
