@@ -1,0 +1,51 @@
+{
+  "name": "thinkorm",
+  "version": "0.0.1",
+  "description": "QueryBuilder for JavaScript. Supports MySQL, PostgreSQL, MariaDB, SQLite, MS SQL Server, Oracle, and more. Works in NodeJS.",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run eslint",
+    "test-cov": "istanbul cover ./node_modules/mocha/bin/_mocha -- -t 50000 --recursive  -R spec test/",
+    "prepublish": "npm test",
+    "eslint": "eslint lib/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thinkkoa/liteQ.git"
+  },
+  "author": "richenlin",
+  "license": "MIT",
+  "keywords": [
+    "orm",
+    "thinkorm"
+  ],
+  "bugs": {
+    "url": "https://github.com/thinkkoa/liteQ/issues"
+  },
+  "homepage": "https://github.com/thinkkoa/liteQ#readme",
+  "engines": {
+    "node": ">8.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^4.11.0",
+    "istanbul": "^1.1.0-alpha.1",
+    "mocha": "^4.0.1",
+    "muk": "^0.5.3",
+    "mysql": "^2.15.0",
+    "pg": "^7.4.1",
+    "supertest": "^3.0.0"
+  },
+  "dependencies": {
+    "bluebird": "^3.5.1",
+    "co": "^4.6.0",
+    "knex": "^0.14.3",
+    "think_lib": "^2.x.x",
+    "think_logger": "^2.x.x"
+  },
+  "maintainers": [
+    {
+      "name": "richenlin",
+      "email": "richenlin@gmail.com"
+    }
+  ]
+}
