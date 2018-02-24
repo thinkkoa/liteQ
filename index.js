@@ -3,7 +3,7 @@
  * @Date: 2018-01-31 14:07:54 
  * @Copyright (c) - <richenlin(at)gmail.com>
  * @Last Modified by: richen
- * @Last Modified time: 2018-02-23 19:25:52
+ * @Last Modified time: 2018-02-24 17:41:01
  */
 
 global.Promise = require('bluebird');
@@ -64,9 +64,9 @@ class liteQ {
      * @returns 
      * @memberof liteQ
      */
-    getInstance(forceNew = false) {
+    async getInstance(forceNew = false) {
         if (!this.instance) {
-            this.instance = adapter.getInstance(this.config, forceNew);
+            this.instance = await adapter.getInstance(this.config, forceNew);
         }
         return this.instance;
     }
@@ -312,7 +312,8 @@ class liteQ {
             // copy data
             let _data = helper.clone(data, true);
             _data = await this._beforeAdd(data, parsedOptions);
-            let result = await this.getInstance().add(_data, parsedOptions);
+            let instance = await this.getInstance();
+            let result = await instance.add(_data, parsedOptions);
             _data[this.pk] = _data[this.pk] ? _data[this.pk] : result;
             await this._afterAdd(_data, parsedOptions);
             return _data[this.pk] || 0;
@@ -333,7 +334,8 @@ class liteQ {
             if (helper.isEmpty(parsedOptions.where)) {
                 return this.error('The deletion condition can not be empty');
             }
-            let result = await this.getInstance().delete(parsedOptions);
+            let instance = await this.getInstance();
+            let result = await instance.delete(parsedOptions);
             return result || 0;
         } catch (e) {
             return this.error(e);
@@ -367,7 +369,8 @@ class liteQ {
                     delete _data[this.pk];
                 }
             }
-            let result = await this.getInstance().update(_data, parsedOptions);
+            let instance = await this.getInstance();
+            let result = await instance.update(_data, parsedOptions);
             return result || [];
         } catch (e) {
             return this.error(e);
@@ -388,7 +391,8 @@ class liteQ {
             if (helper.isEmpty(field)) {
                 return this.error('Field name error');
             }
-            let result = await this.getInstance().increment({ [field]: step }, field, parsedOptions);
+            let instance = await this.getInstance();
+            let result = await instance.increment({ [field]: step }, field, parsedOptions);
             return result || [];
         } catch (e) {
             return this.error(e);
@@ -409,7 +413,8 @@ class liteQ {
             if (helper.isEmpty(field)) {
                 return this.error('Field name error');
             }
-            let result = await this.getInstance().decrement({ [field]: step }, field, parsedOptions);
+            let instance = await this.getInstance();
+            let result = await instance.decrement({ [field]: step }, field, parsedOptions);
             return result || [];
         } catch (e) {
             return this.error(e);
@@ -426,7 +431,8 @@ class liteQ {
     async count(field, options) {
         try {
             let parsedOptions = helper.parseOptions(this, options);
-            let result = await this.getInstance().count(field, parsedOptions);
+            let instance = await this.getInstance();
+            let result = await instance.count(field, parsedOptions);
             return result || 0;
         } catch (e) {
             return this.error(e);
@@ -443,7 +449,8 @@ class liteQ {
     async sum(field, options) {
         try {
             let parsedOptions = helper.parseOptions(this, options);
-            let result = await this.getInstance().sum(field, parsedOptions);
+            let instance = await this.getInstance();
+            let result = await instance.sum(field, parsedOptions);
             return result || 0;
         } catch (e) {
             return this.error(e);
@@ -458,7 +465,8 @@ class liteQ {
     async find(options) {
         try {
             let parsedOptions = helper.parseOptions(this, options);
-            let result = await this.getInstance().find(parsedOptions);
+            let instance = await this.getInstance();
+            let result = await instance.find(parsedOptions);
             return (helper.isArray(result) ? result[0] : result) || {};
         } catch (e) {
             return this.error(e);
@@ -474,7 +482,8 @@ class liteQ {
     async select(options) {
         try {
             let parsedOptions = helper.parseOptions(this, options);
-            let result = await this.getInstance().select(parsedOptions);
+            let instance = await this.getInstance();
+            let result = await instance.select(parsedOptions);
             return result;
         } catch (e) {
             return this.error(e);
@@ -490,8 +499,8 @@ class liteQ {
     async countSelect(options) {
         try {
             let parsedOptions = helper.parseOptions(this, options);
-            this.instance = this.getInstance();
-            let countNum = await this.instance.count(null, parsedOptions);
+            let instance = await this.getInstance();
+            let countNum = await instance.count(null, parsedOptions);
             let pageOptions = helper.parsePage(parsedOptions.page || 1, parsedOptions.num || 10);
             let totalPage = Math.ceil(countNum / pageOptions.num);
             if (pageOptions.page > totalPage) {
@@ -501,7 +510,7 @@ class liteQ {
             let offset = (pageOptions.page - 1) < 0 ? 0 : (pageOptions.page - 1) * pageOptions.num;
             parsedOptions.limit = [offset, pageOptions.num];
             let result = helper.extend({ count: countNum, total: totalPage }, pageOptions);
-            result.data = await this.instance.select(parsedOptions);
+            result.data = await instance.select(parsedOptions);
             return result;
         } catch (e) {
             return this.error(e);
@@ -518,7 +527,8 @@ class liteQ {
      */
     async query(sqlStr, params = []) {
         try {
-            let result = await this.getInstance().native(this.tableName, sqlStr, params);
+            let instance = await this.getInstance();
+            let result = await instance.native(this.tableName, sqlStr, params);
             return result;
         } catch (e) {
             return this.error(e);
@@ -532,17 +542,17 @@ class liteQ {
      * @memberof liteQ
      */
     async transaction(fn) {
-        this.instance = await this.getInstance(true);
+        let instance = await this.getInstance(true);
         if (!this.instance.startTrans){
             return this.error('Adapter is not support transaction');
         }
         try {
-            await this.instance.startTrans();
-            let result = await helper.thinkco(fn(this.instance));
-            await this.instance.commit();
+            await instance.startTrans();
+            let result = await helper.thinkco(fn(instance));
+            await instance.commit();
             return result;
         } catch (e) {
-            await this.instance.rollback();
+            await instance.rollback();
             return this.error(e);
         }
     }
