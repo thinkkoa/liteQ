@@ -19,13 +19,8 @@ const liteQ = require('liteq');
 class user extends liteQ {
     init(config){
         // 数据表字段信息
-        this.fields = {
-            id: {
-                type: 'integer',
-                primaryKey: true
-            }
-        };
         this.modelName = 'User';
+        this.pk = 'id';
     }
 }
 process.env.NODE_ENV = 'development';
