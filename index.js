@@ -3,7 +3,7 @@
  * @Date: 2018-01-31 14:07:54 
  * @Copyright (c) - <richenlin(at)gmail.com>
  * @Last Modified by: richen
- * @Last Modified time: 2018-02-24 17:41:01
+ * @Last Modified time: 2018-02-27 12:04:46
  */
 
 global.Promise = require('bluebird');
@@ -559,5 +559,4 @@ class liteQ {
 }
 
 liteQ.helper = helper;
-liteQ.logger = logger;
 module.exports = liteQ;
