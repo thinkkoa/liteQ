@@ -4,7 +4,7 @@
   "description": "QueryBuilder for JavaScript. Supports MySQL, PostgreSQL, MariaDB, SQLite, MS SQL Server, Oracle and more. Works in NodeJS.",
   "main": "index.js",
   "scripts": {
-    "test": "npm run eslint",
+    "test": "npm run eslint && npm run test-cov",
     "test-cov": "istanbul cover ./node_modules/mocha/bin/_mocha -- -t 50000 --recursive  -R spec test/",
     "prepublish": "npm test",
     "eslint": "eslint lib/"
