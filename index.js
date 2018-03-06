@@ -3,7 +3,7 @@
  * @Date: 2018-01-31 14:07:54 
  * @Copyright (c) - <richenlin(at)gmail.com>
  * @Last Modified by: richen
- * @Last Modified time: 2018-02-27 12:04:46
+ * @Last Modified time: 2018-02-28 11:25:09
  */
 
 global.Promise = require('bluebird');
@@ -35,12 +35,13 @@ class liteQ {
         this.pk = 'id';
         // init
         this.init(...args);
-        // 数据源配置
-        this.config = this.config || args[0] || {};
+        
         // 模型名称
         if (!this.modelName) {
             throw Error('modelName is undefined.');
         }
+        // 数据源配置
+        this.config = this.config || args[0] || {};
         // 数据表名
         this.tableName = this.tableName || this.getTableName();
         // SQL操作项
@@ -309,14 +310,10 @@ class liteQ {
                 throw Error('Data can not be empty');
             }
             let parsedOptions = helper.parseOptions(this, options);
-            // copy data
-            let _data = helper.clone(data, true);
-            _data = await this._beforeAdd(data, parsedOptions);
             let instance = await this.getInstance();
-            let result = await instance.add(_data, parsedOptions);
-            _data[this.pk] = _data[this.pk] ? _data[this.pk] : result;
-            await this._afterAdd(_data, parsedOptions);
-            return _data[this.pk] || 0;
+            let result = await instance.add(data, parsedOptions);
+            data[this.pk] = data[this.pk] ? data[this.pk] : result;
+            return data[this.pk] || 0;
         } catch (e) {
             return this.error(e);
         }
@@ -484,7 +481,7 @@ class liteQ {
             let parsedOptions = helper.parseOptions(this, options);
             let instance = await this.getInstance();
             let result = await instance.select(parsedOptions);
-            return result;
+            return result || [];
         } catch (e) {
             return this.error(e);
         }

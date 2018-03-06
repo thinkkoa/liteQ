@@ -3,7 +3,7 @@
  * @Date: 2018-02-09 16:35:40 
  * @Copyright (c) - <richenlin(at)gmail.com>
  * @Last Modified by: richen
- * @Last Modified time: 2018-02-27 10:55:38
+ * @Last Modified time: 2018-02-27 12:26:58
  */
 const helper = require('../lib/helper.js');
 const liteQ = require('../index.js');
@@ -11,12 +11,7 @@ const liteQ = require('../index.js');
 class user extends liteQ {
     init(config){
         // 数据表字段信息
-        this.fields = {
-            id: {
-                type: 'integer',
-                primaryKey: true
-            }
-        };
+        this.pk = 'id';
         this.modelName = 'User';
     }
 }
