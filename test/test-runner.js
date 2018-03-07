@@ -32,7 +32,7 @@ module.exports = function (test, cb) {
             model = model[n](outcome.query[n]);
         }
 
-        let options = liteQ.helper.parseOptions(model, {}, outcome.options);
+        let options = liteQ.helper.parseOptions(model, outcome.options);
         let result = await parser.buildSql(outcome.client, options);
 
         try {
