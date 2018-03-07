@@ -18,8 +18,9 @@ const liteQ = require('liteq');
 
 class user extends liteQ {
     init(config){
-        // 数据表字段信息
+        // 模型名称
         this.modelName = 'User';
+        // 主键
         this.pk = 'id';
     }
 }
