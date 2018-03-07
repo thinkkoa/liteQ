@@ -32,13 +32,13 @@
     "istanbul": "^1.1.0-alpha.1",
     "mocha": "^5.0.1",
     "muk": "^0.5.3",
+    "mysql": "^2.15.0",
     "supertest": "^3.0.0"
   },
   "dependencies": {
     "bluebird": "^3.5.1",
     "co": "^4.6.0",
     "knex": "^0.14.3",
-    "mysql": "^2.15.0",
     "think_lib": "^2.x.x",
     "think_logger": "^2.x.x"
   },
