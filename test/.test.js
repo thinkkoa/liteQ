@@ -3,7 +3,7 @@
  * @Date: 2018-02-09 16:35:40 
  * @Copyright (c) - <richenlin(at)gmail.com>
  * @Last Modified by: richen
- * @Last Modified time: 2018-02-27 12:26:58
+ * @Last Modified time: 2018-03-08 17:10:49
  */
 const helper = require('../lib/helper.js');
 const liteQ = require('../index.js');
@@ -32,13 +32,13 @@ const model = new user({
     db_name: 'test',
     db_user: 'root',
     db_pwd: 'richenlin',
-    db_prefix: ''
+    db_prefix: 'think_'
 });
 
 //查询测试
 let now = Date.now(), ss = 0;
 return model
-.where({id: {'<>': 1, '>=': 0}, name: 'rrrrrrr', or: [{name: 'aa'}, {name: 'aaa'}], not: {name: 1, id: 2}, notin: {name: [1,2,3]}}).find()
+// .where({id: {'<>': 1, '>=': 0}, name: 'rrrrrrr', or: [{name: 'aa'}, {name: 'aaa'}], not: {name: 1, id: 2}, notin: {name: [1,2,3]}}).find()
 // .where({or: [{name: {'like': '%aa%'}}, {memo: {'like': '%aa%'}}]}).find()
 // .where({id: {'>=': 0}}).count()
 // .where({id: {'>=': 0}}).sum('id')
@@ -58,7 +58,7 @@ return model
 
 // .where({id: {'<>': 1, '>=': 2, '>': 0,'<': 100, '<=': 10}}).alias('test').select()
 // .countSelect()
-// .join([{from: 'Profile', alias: 'pfile', on: {or: [{profile: 'id'}], profile: 'id'}, field: ['id as aid', 'test'], type: 'left'}]).find({field: ['id']})
+.join([{from: 'Profile', alias: 'pfile', on: {or: [{profile: 'id'}]}, field: ['id as aid', 'test'], type: 'left'}]).where({'pfile.id':{"<>": ""}}).select({field: ['id']})
 // .field(['id','name']).join([{from: 'Profile', on: {or: [{profile: 'id'}, {name: 'test'}], profile: 'id'}, field: ['id', 'test'], type: 'left'}]).countSelect({field: ['name', 'num']})
 //     .select({field: ['id','name'], join: [{from: 'Profile', on: {or: [{profile: 'id'}, {name: 'test'}], profile: 'id'}, field: ['Profile.id as pid', 'test'], type: 'left'}]})
 // .field(['id', 'name']).where({id: {'>=': 0}}).group('name').countSelect()
