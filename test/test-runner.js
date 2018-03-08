@@ -42,7 +42,7 @@ module.exports = function (test, cb) {
             return cb(e);
         };
     };
-
+    
     promise.reduce(test.outcomes, function(index){
         return testDialect(index, cb);
     });
