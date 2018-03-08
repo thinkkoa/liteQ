@@ -3,7 +3,7 @@
  * @Date: 2018-02-09 16:35:40 
  * @Copyright (c) - <richenlin(at)gmail.com>
  * @Last Modified by: richen
- * @Last Modified time: 2018-03-08 17:27:53
+ * @Last Modified time: 2018-03-08 20:39:52
  */
 const helper = require('../lib/helper.js');
 const liteQ = require('../index.js');
@@ -38,9 +38,9 @@ const model = new user({
 //查询测试
 let now = Date.now(), ss = 0;
 return model
-.where({id: {'<>': 1, '>=': 0}, name: 'rrrrrrr', or: [{name: 'aa'}, {name: 'aaa'}], not: {name: 1, id: 2}, notin: {name: [1,2,3]}}).find()
+// .where({id: {'<>': 1, '>=': 0}, name: 'rrrrrrr', or: [{name: 'aa'}, {name: 'aaa'}], not: {name: 1, id: 2}, notin: {name: [1,2,3]}}).find()
 // .where({or: [{name: {'like': '%aa%'}}, {memo: {'like': '%aa%'}}]}).find()
-// .where({id: {'>=': 0}}).count()
+.where({id: {'>=': 0}}).count()
 // .where({id: {'>=': 0}}).sum('id')
 // .where({id: {'>=': 0}}).select()
 // .where({name: {'like': 'r%'}}).find()
