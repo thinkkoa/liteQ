@@ -3,7 +3,7 @@
  * @Date: 2018-01-31 14:07:54 
  * @Copyright (c) - <richenlin(at)gmail.com>
  * @Last Modified by: richen
- * @Last Modified time: 2018-02-28 11:25:09
+ * @Last Modified time: 2018-03-08 15:26:18
  */
 
 global.Promise = require('bluebird');
@@ -35,7 +35,7 @@ class liteQ {
         this.pk = 'id';
         // init
         this.init(...args);
-        
+
         // 模型名称
         if (!this.modelName) {
             throw Error('modelName is undefined.');
@@ -254,6 +254,26 @@ class liteQ {
         }
     }
     /**
+     * 去重
+     * distinct(['first_name'])
+     * @param {array} values 
+     * @returns 
+     * @memberof liteQ
+     */
+    distinct(values) {
+        try {
+            if (!values) {
+                return this;
+            }
+            if (helper.isArray(values)) {
+                this.options.distinct = this.options.distinct ? helper.extend(this.options.distinct, values) : values;
+            }
+            return this;
+        } catch (e) {
+            return this.error(e);
+        }
+    }
+    /**
      * 分组
      * group('xxx')
      * group(['xxx', 'xxx'])
@@ -268,6 +288,26 @@ class liteQ {
             }
             if (helper.isString(values) || helper.isArray(values)) {
                 this.options.group = this.options.group ? helper.extend(this.options.group, values) : values;
+            }
+            return this;
+        } catch (e) {
+            return this.error(e);
+        }
+    }
+    /**
+     * HAVING子句
+     * having({"name":{">": 100}})
+     * @param {any} values 
+     * @returns 
+     * @memberof liteQ
+     */
+    having(values) {
+        try {
+            if (!values) {
+                return this;
+            }
+            if (helper.isObject(values)) {
+                this.options.having = this.options.having ? helper.extend(this.options.having, values) : values;
             }
             return this;
         } catch (e) {
@@ -540,7 +580,7 @@ class liteQ {
      */
     async transaction(fn) {
         let instance = await this.getInstance(true);
-        if (!this.instance.startTrans){
+        if (!this.instance.startTrans) {
             return this.error('Adapter is not support transaction');
         }
         try {
