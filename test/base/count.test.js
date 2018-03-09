@@ -50,7 +50,7 @@ describe('Query Generation ::', function () {
                             where: {id: {'>=': 0}}
                         },
                         sql: "select count(*) from `think_user` as `User` where `User`.`id` >= 0"
-                    }
+                    },
                 ]
             }, done);
         });
