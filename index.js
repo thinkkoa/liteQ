@@ -3,7 +3,7 @@
  * @Date: 2018-01-31 14:07:54 
  * @Copyright (c) - <richenlin(at)gmail.com>
  * @Last Modified by: richen
- * @Last Modified time: 2018-03-08 15:26:18
+ * @Last Modified time: 2018-03-09 11:31:42
  */
 
 global.Promise = require('bluebird');
@@ -28,7 +28,7 @@ class liteQ {
         this.fields = {
             id: {
                 type: 'integer',
-                primaryKey: true
+                pk: true
             }
         };
         // 主键
@@ -118,7 +118,7 @@ class liteQ {
         try {
             if (helper.isEmpty(this.pk) && helper.isEmpty(this.fields)) {
                 for (let n in this.fields) {
-                    if (this.fields[n].primaryKey !== undefined && this.fields[n].primaryKey) {
+                    if (this.fields[n].pk !== undefined && this.fields[n].pk) {
                         this.pk = n;
                     }
                 }
