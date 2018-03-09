@@ -5,8 +5,8 @@ const baseparser = require('../../lib/parser/base.js');
 
 
 describe('Query Generation ::', function () {
-    describe('Grouping statements with COUNT', function () {
-        it('should generate a query when an COUNT statement', function (done) {
+    describe('Grouping statements with SUM', function () {
+        it('should generate a query when an SUM statement', function (done) {
             Test({
                 outcomes: [
                     {
@@ -24,11 +24,11 @@ describe('Query Generation ::', function () {
                         },
                         options: {method: 'SELECT'},
                         parser:baseparser,
-                        client: knex({client: 'mysql'}).count().from('think_user AS User'),
+                        client: knex({client: 'mysql'}).sum('id').from('think_user AS User'),
                         query: {
                             where: {id: {'>=': 0}}
                         },
-                        sql: "select count(*) from `think_user` as `User` where `User`.`id` >= 0"
+                        sql: "select sum(`id`) from `think_user` as `User` where `User`.`id` >= 0"
                     },
                     {
                         dialect: 'postgresql',
@@ -45,11 +45,11 @@ describe('Query Generation ::', function () {
                         },
                         options: {method: 'SELECT'},
                         parser:baseparser,
-                        client: knex({client: 'postgresql'}).count().from('think_user AS User'),
+                        client: knex({client: 'postgresql'}).sum('id').from('think_user AS User'),
                         query: {
                             where: {id: {'>=': 0}}
                         },
-                        sql: 'select count(*) from "think_user" as "User" where "User"."id" >= 0'
+                        sql: 'select sum("id") from "think_user" as "User" where "User"."id" >= 0'
                     },
                 ]
             }, done);

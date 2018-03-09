@@ -3,7 +3,7 @@
  * @Date: 2018-02-09 16:35:40 
  * @Copyright (c) - <richenlin(at)gmail.com>
  * @Last Modified by: richen
- * @Last Modified time: 2018-03-08 20:39:52
+ * @Last Modified time: 2018-03-09 09:30:25
  */
 const helper = require('../lib/helper.js');
 const liteQ = require('../index.js');
@@ -40,7 +40,7 @@ let now = Date.now(), ss = 0;
 return model
 // .where({id: {'<>': 1, '>=': 0}, name: 'rrrrrrr', or: [{name: 'aa'}, {name: 'aaa'}], not: {name: 1, id: 2}, notin: {name: [1,2,3]}}).find()
 // .where({or: [{name: {'like': '%aa%'}}, {memo: {'like': '%aa%'}}]}).find()
-.where({id: {'>=': 0}}).count()
+// .where({id: {'>=': 0}}).count()
 // .where({id: {'>=': 0}}).sum('id')
 // .where({id: {'>=': 0}}).select()
 // .where({name: {'like': 'r%'}}).find()
@@ -59,10 +59,10 @@ return model
 // .where({id: {'<>': 1, '>=': 2, '>': 0,'<': 100, '<=': 10}}).alias('test').select()
 // .countSelect()
 // .join([{from: 'Profile', alias: 'pfile', on: {or: [{profile: 'id'}]}, field: ['id as aid', 'test'], type: 'left'}]).where({'pfile.id':{"<>": ""}}).select({field: ['id']})
-// .field(['id','name']).join([{from: 'Profile', on: {or: [{profile: 'id'}, {name: 'test'}], profile: 'id'}, field: ['id', 'test'], type: 'left'}]).countSelect({field: ['name', 'num']})
+// .field(['id','name']).join([{from: 'Profile', on: {or: [{profile: 'id'}, {name: 'test'}], profile: 'id'}, field: ['id', 'test'], type: 'left'}]).select({field: ['name', 'num']})
 //     .select({field: ['id','name'], join: [{from: 'Profile', on: {or: [{profile: 'id'}, {name: 'test'}], profile: 'id'}, field: ['Profile.id as pid', 'test'], type: 'left'}]})
 // .field(['id', 'name']).where({id: {'>=': 0}}).group('name').countSelect()
-// .query('select * from think_user where id = 1')
+.query('select * from think_user where id = 1')
 // .where({id:1}).increment('num', 1)
 //     .where({id:1}).decrement('num', 1)
 

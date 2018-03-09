@@ -4,7 +4,8 @@
  */
 /*eslint-disable */
 const assert = require('assert');
-const promise = require('bluebird');
+const async = require('async');
+const genPromise = require('./genPromise.js');
 const path = require('path');
 const liteQ = require('../index.js');
 
@@ -24,7 +25,7 @@ class User extends liteQ {
 process.env.NODE_ENV = 'development';
 
 module.exports = function (test, cb) {
-    const testDialect = async function(outcome, next) {
+    const testDialect = function(outcome, next) {
         let model = new User(outcome.config);
         let parser = new (outcome.parser)(outcome.config);
 
@@ -33,17 +34,17 @@ module.exports = function (test, cb) {
         }
 
         let options = liteQ.helper.parseOptions(model, outcome.options);
-        let result = await parser.buildSql(outcome.client, options);
-
-        try {
-            assert.equal(result, outcome.sql);
-            next();
-        } catch (e) {
-            return cb(e);
-        };
+        return genPromise(function*(){
+            let result = yield parser.buildSql(outcome.client, options);
+            try {
+                // echo([outcome.dialect, result])
+                assert.equal(result, outcome.sql);
+                next();
+            } catch (e) {
+                return cb(e);
+            };
+        })();
     };
     
-    promise.reduce(test.outcomes, function(index){
-        return testDialect(index, cb);
-    });
+    async.each(test.outcomes, testDialect, cb);
 };

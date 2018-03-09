@@ -28,6 +28,7 @@
   },
   "devDependencies": {
     "assert": "^1.4.1",
+    "async": "^2.6.0",
     "eslint": "^4.18.1",
     "istanbul": "^1.1.0-alpha.1",
     "mocha": "^5.0.1",
