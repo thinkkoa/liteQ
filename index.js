@@ -3,7 +3,7 @@
  * @Date: 2018-01-31 14:07:54 
  * @Copyright (c) - <richenlin(at)gmail.com>
  * @Last Modified by: richen
- * @Last Modified time: 2018-03-09 11:31:42
+ * @Last Modified time: 2018-03-09 16:21:35
  */
 
 global.Promise = require('bluebird');
@@ -537,7 +537,7 @@ class liteQ {
         try {
             let parsedOptions = helper.parseOptions(this, options);
             let instance = await this.getInstance();
-            let countNum = await instance.count(null, parsedOptions);
+            let countNum = await instance.count(this.getPk(), parsedOptions);
             let pageOptions = helper.parsePage(parsedOptions.page || 1, parsedOptions.num || 10);
             let totalPage = Math.ceil(countNum / pageOptions.num);
             if (pageOptions.page > totalPage) {
