@@ -3,7 +3,7 @@
  * @Date: 2018-01-31 14:07:54 
  * @Copyright (c) - <richenlin(at)gmail.com>
  * @Last Modified by: richen
- * @Last Modified time: 2018-03-09 16:21:35
+ * @Last Modified time: 2018-03-09 16:48:28
  */
 
 global.Promise = require('bluebird');
@@ -32,7 +32,7 @@ class liteQ {
             }
         };
         // 主键
-        this.pk = 'id';
+        this.pk = '';
         // init
         this.init(...args);
 
@@ -116,7 +116,7 @@ class liteQ {
      */
     getPk() {
         try {
-            if (helper.isEmpty(this.pk) && helper.isEmpty(this.fields)) {
+            if (helper.isEmpty(this.pk)) {
                 for (let n in this.fields) {
                     if (this.fields[n].pk !== undefined && this.fields[n].pk) {
                         this.pk = n;
