@@ -22,13 +22,18 @@ describe('Query Generation ::', function () {
                             db_charset: 'utf8',
                             db_ext_config: {safe: true, db_log_sql: true, db_pool_size: 10}
                         },
-                        options: {method: 'SELECT'},
+                        options: {
+                            table: 'think_user',
+                            alias: 'User',
+                            method: 'COUNT',
+                            targetField: 'id'
+                        },
                         parser:baseparser,
-                        client: knex({client: 'mysql'}).count().from('think_user AS User'),
+                        client: knex({client: 'mysql'}),
                         query: {
                             where: {id: {'>=': 0}}
                         },
-                        sql: "select count(*) from `think_user` as `User` where `User`.`id` >= 0"
+                        sql: "select count(`id`) as `count` from `think_user` as `User` where `User`.`id` >= 0"
                     },
                     {
                         dialect: 'postgresql',
@@ -43,13 +48,18 @@ describe('Query Generation ::', function () {
                             db_charset: 'utf8',
                             db_ext_config: {safe: true, db_log_sql: true, db_pool_size: 10}
                         },
-                        options: {method: 'SELECT'},
+                        options: {
+                            table: 'think_user',
+                            alias: 'User',
+                            method: 'COUNT',
+                            targetField: 'id'
+                        },
                         parser:baseparser,
-                        client: knex({client: 'postgresql'}).count().from('think_user AS User'),
+                        client: knex({client: 'postgresql'}),
                         query: {
                             where: {id: {'>=': 0}}
                         },
-                        sql: 'select count(*) from "think_user" as "User" where "User"."id" >= 0'
+                        sql: 'select count("id") as "count" from "think_user" as "User" where "User"."id" >= 0'
                     },
                 ]
             }, done);

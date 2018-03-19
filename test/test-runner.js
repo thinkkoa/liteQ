@@ -27,7 +27,7 @@ process.env.NODE_ENV = 'development';
 module.exports = function (test, cb) {
     const testDialect = function(outcome, next) {
         let model = new User(outcome.config);
-        let parser = new (outcome.parser)(outcome.config);
+        let parser = outcome.parser;
 
         for (let n in outcome.query) {
             model = model[n](outcome.query[n]);
@@ -35,9 +35,9 @@ module.exports = function (test, cb) {
 
         let options = liteQ.helper.parseOptions(model, outcome.options);
         return genPromise(function*(){
-            let result = yield parser.buildSql(outcome.client, options);
+            let result = yield parser.buildSql(outcome.config, outcome.client, options);
             try {
-                // echo([outcome.dialect, result])
+                echo([outcome.dialect, result])
                 assert.equal(result, outcome.sql);
                 next();
             } catch (e) {

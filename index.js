@@ -3,7 +3,7 @@
  * @Date: 2018-01-31 14:07:54 
  * @Copyright (c) - <richenlin(at)gmail.com>
  * @Last Modified by: richen
- * @Last Modified time: 2018-03-09 16:48:28
+ * @Last Modified time: 2018-03-19 13:23:06
  */
 
 global.Promise = require('bluebird');
@@ -418,18 +418,20 @@ class liteQ {
      * 
      * @param {any} field 
      * @param {number} [step=1] 
+     * @param {any} data 
      * @param {any} options 
      * @returns 
      * @memberof liteQ
      */
-    async increment(field, step = 1, options) {
+    async increment(field, step = 1, data, options) {
         try {
             let parsedOptions = helper.parseOptions(this, options);
             if (helper.isEmpty(field)) {
                 return this.error('Field name error');
             }
+            data[field] = step;
             let instance = await this.getInstance();
-            let result = await instance.increment({ [field]: step }, field, parsedOptions);
+            let result = await instance.increment(data, field, parsedOptions);
             return result || [];
         } catch (e) {
             return this.error(e);
@@ -440,18 +442,20 @@ class liteQ {
      * 
      * @param {any} field 
      * @param {number} [step=1] 
+     * @param {any} data 
      * @param {any} options 
      * @returns 
      * @memberof liteQ
      */
-    async decrement(field, step = 1, options) {
+    async decrement(field, step = 1, data, options) {
         try {
             let parsedOptions = helper.parseOptions(this, options);
             if (helper.isEmpty(field)) {
                 return this.error('Field name error');
             }
+            data[field] = step;
             let instance = await this.getInstance();
-            let result = await instance.decrement({ [field]: step }, field, parsedOptions);
+            let result = await instance.decrement(data, field, parsedOptions);
             return result || [];
         } catch (e) {
             return this.error(e);
