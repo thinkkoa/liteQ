@@ -3,7 +3,7 @@
  * @Date: 2018-02-09 16:35:40 
  * @Copyright (c) - <richenlin(at)gmail.com>
  * @Last Modified by: richen
- * @Last Modified time: 2018-03-19 19:49:44
+ * @Last Modified time: 2018-03-20 15:55:29
  */
 const helper = require('../lib/helper.js');
 const liteQ = require('../index.js');
@@ -11,8 +11,8 @@ const liteQ = require('../index.js');
 class user extends liteQ {
     init(config){
         // 数据表字段信息
-        this.pk = 'phone_md5';
-        this.modelName = 'mobilemd5';
+        this.pk = 'id';
+        this.modelName = 'User';
         // this.tableName = 'THINK_USER';
     }
 }
@@ -23,7 +23,7 @@ process.env.NODE_ENV = 'development';
 //     db_port: 5432,
 //     db_name: 'test',
 //     db_user: 'root',
-//     db_pwd: 'richenlin',
+//     db_pwd: 'test',
 //     db_prefix: ''
 // });
 // const model = new user({
@@ -32,16 +32,25 @@ process.env.NODE_ENV = 'development';
 //     db_port: 3306,
 //     db_name: 'test',
 //     db_user: 'root',
-//     db_pwd: 'richenlin',
+//     db_pwd: 'test',
 //     db_prefix: 'think_'
 // });
+// const model = new user({
+//     db_type: 'oracle',
+//     db_host: '192.168.0.84',
+//     db_port: 1521,
+//     db_name: 'xe',
+//     db_user: 'system',
+//     db_pwd: 'oracle',
+//     db_prefix: ''
+// });
 const model = new user({
-    db_type: 'oracle',
-    db_host: '192.168.0.84',
-    db_port: 1521,
-    db_name: 'xe',
-    db_user: 'system',
-    db_pwd: 'oracle',
+    db_type: 'mssql',
+    db_host: '192.168.0.155',
+    db_port: 1433,
+    db_name: 'model',
+    db_user: 'sa',
+    db_pwd: 'Richenlin123$',
     db_prefix: ''
 });
 
@@ -57,7 +66,7 @@ return model
 // .where({not: {name: 'rrrrrrrrrrrrr', id: 1}}).select()
 // .where({notin: {'id': [1,2,3]}}).select()
 // .where({name: {'like': '%a'}}).select()
-// .where({id: [1,2,3]}).select()
+.where({id: [1,2,3]}).select()
 
 // .where({id: {'<>': 1, '>=': 0, notin: [1,2,3]}, name: ['aa', 'rrrrrrr'], notin: {'id': [1,2,3], num: [1,2,3]}, not: {name: '', num: [1,2,3]}, memo: {'like': '%a'}, or: [{name: 'aa', id: 1}, {name: 'rrrrrrr', id: {'>': 1}}]}).find()
 // .where({'and': {id: 1, name: 'aa'}}).find()//and做key
@@ -67,7 +76,7 @@ return model
 // .select({field: 'id', limit: 1, order: {id: 'desc'}, where: {name: {'<>': '', not: 'aa', notin: ['aa', 'rrr'], like: '%a'}}}) //options高级用法
 
 // .where({id: {'<>': 1, '>=': 2, '>': 0,'<': 100, '<=': 10}}).alias('test').select()
-.countSelect()
+// .countSelect()
 // .join([{from: 'Profile', alias: 'pfile', on: {or: [{profile: 'id'}]}, field: ['id as aid', 'test'], type: 'left'}]).where({'pfile.id':{"<>": ""}}).select({field: ['id']})
 // .field(['id','name']).join([{from: 'Profile', on: {or: [{profile: 'id'}, {name: 'test'}], profile: 'id'}, field: ['id', 'test'], type: 'left'}]).select({field: ['name', 'num']})
 //     .select({field: ['id','name'], join: [{from: 'Profile', on: {or: [{profile: 'id'}, {name: 'test'}], profile: 'id'}, field: ['Profile.id as pid', 'test'], type: 'left'}]})
