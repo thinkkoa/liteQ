@@ -3,7 +3,7 @@
  * @Date: 2018-01-31 14:07:54 
  * @Copyright (c) - <richenlin(at)gmail.com>
  * @Last Modified by: richen
- * @Last Modified time: 2018-03-19 13:23:06
+ * @Last Modified time: 2018-03-20 14:17:28
  */
 
 global.Promise = require('bluebird');
@@ -423,7 +423,7 @@ class liteQ {
      * @returns 
      * @memberof liteQ
      */
-    async increment(field, step = 1, data, options) {
+    async increment(field, step = 1, data = {}, options) {
         try {
             let parsedOptions = helper.parseOptions(this, options);
             if (helper.isEmpty(field)) {
@@ -447,7 +447,7 @@ class liteQ {
      * @returns 
      * @memberof liteQ
      */
-    async decrement(field, step = 1, data, options) {
+    async decrement(field, step = 1, data = {}, options) {
         try {
             let parsedOptions = helper.parseOptions(this, options);
             if (helper.isEmpty(field)) {
