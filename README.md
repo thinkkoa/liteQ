@@ -13,69 +13,62 @@ npm install liteq --save
 
 # Example
 
-```
+### 创建模型
+
+创建 user.js文件，模板代码如下：
+
+
+```js
 const liteQ = require('liteq');
 
-class user extends liteQ {
-    init(config){
-        // 模型名称
-        this.modelName = 'User';
-        // 主键
+module.exports = class extends liteQ {
+    // 构造方法
+    init(){
+        // 模型名称,映射实体表 user
+        this.modelName = 'user';
+        // 数据表主键
         this.pk = 'id';
     }
 }
-process.env.NODE_ENV = 'development';
 
-const model = new user({
-    db_type: 'mysql',
-    db_host: '127.0.0.1',
-    db_port: 3306,
-    db_name: 'test',
-    db_user: 'root',
-    db_pwd: 'richenlin',
-    db_prefix: ''
-});
+```
 
-//查询测试
-let now = Date.now(), ss = 0;
-return model
-.where({id: {'<>': 1, '>=': 0}, name: 'rrrrrrr', or: [{name: 'aa'}, {name: 'aaa'}], not: {name: 1, id: 2}, notin: {name: [1,2,3]}}).find()
-// .where({or: [{name: {'like': '%aa%'}}, {memo: {'like': '%aa%'}}]}).find()
-// .where({id: {'>=': 0}}).count()
-// .where({id: {'>=': 0}}).sum('id')
-// .where({id: {'>=': 0}}).select()
-// .where({name: {'like': 'r%'}}).find()
-// .where({not: {name: 'rrrrrrrrrrrrr', id: 1}}).select()
-// .where({notin: {'id': [1,2,3]}}).select()
-// .where({name: {'like': '%a'}}).select()
-// .where({id: [1,2,3]}).select()
+### 实例化模型
 
-// .where({id: {'<>': 1, '>=': 0, notin: [1,2,3]}, name: ['aa', 'rrrrrrr'], notin: {'id': [1,2,3], num: [1,2,3]}, not: {name: '', num: [1,2,3]}, memo: {'like': '%a'}, or: [{name: 'aa', id: 1}, {name: 'rrrrrrr', id: {'>': 1}}]}).find()
-// .where({'and': {id: 1, name: 'aa'}}).find()//and做key
-// .where({or: [{id: 1, name: {or: [{name: 'aa'}, {memo: 'aa'}]}}, {memo: 'aa'}]}).find()//or嵌套
-// .where({in: {id: [1,2,3], num: [2,3]}}).find()//in做key
-// .where({'operator': {id: {'<>': 1, '>=': 0}}}).find()//operator做key
-// .select({field: 'id', limit: 1, order: {id: 'desc'}, where: {name: {'<>': '', not: 'aa', notin: ['aa', 'rrr'], like: '%a'}}}) //options高级用法
+```js
+const user = require("./user.js");
+//数据源配置
+let config = {
+    db_type: 'mysql', // 数据库类型,支持mysql,postgressql,sqlite3,oracle,mssql
+    db_host: '127.0.0.1', // 服务器地址
+    db_port: 3306, // 端口
+    db_name: 'test', // 数据库名
+    db_user: 'root', // 用户名
+    db_pwd: '', // 密码
+};
 
-// .where({id: {'<>': 1, '>=': 2, '>': 0,'<': 100, '<=': 10}}).alias('test').select()
-// .countSelect()
-// .join([{from: 'Profile', alias: 'pfile', on: {or: [{profile: 'id'}], profile: 'id'}, field: ['id as aid', 'test'], type: 'left'}]).find({field: ['id']})
-// .field(['id','name']).join([{from: 'Profile', on: {or: [{profile: 'id'}, {name: 'test'}], profile: 'id'}, field: ['id', 'test'], type: 'left'}]).countSelect({field: ['name', 'num']})
-//     .select({field: ['id','name'], join: [{from: 'Profile', on: {or: [{profile: 'id'}, {name: 'test'}], profile: 'id'}, field: ['Profile.id as pid', 'test'], type: 'left'}]})
-// .field(['id', 'name']).where({id: {'>=': 0}}).group('name').countSelect()
-// .query('select * from think_user where id = 1')
-// .where({id:1}).increment('num', 1)
-//     .where({id:1}).decrement('num', 1)
+//实例化
+let userModel = new user(config);
+```
 
-//.add({name: 'qqqesddfsdqqq'})
+### CURD
 
-.then(ress => {
-    echo(`${Date.now() - ss}ms -- ${JSON.stringify(ress)}`);
-    process.exit();
-}).catch(e => {
-    // echo(e);
-    process.exit();
-});
+```js
+
+// add
+let result = await userModel.add({"name": "张三"});
+
+// delete
+result = await userModel.where({id: 1}).delete();
+
+// update
+result = await userModel.where({id: 2}).update({"name": "李四"});
+
+// select 
+result = await userModel.where({id: 3}).find(); //limit 1
+result = await userModel.where({"name": {"<>": ""}}).select(); //query name is not null
+
+
 ```
 
 # License
