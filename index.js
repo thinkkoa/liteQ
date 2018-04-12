@@ -3,7 +3,7 @@
  * @Date: 2018-01-31 14:07:54 
  * @Copyright (c) - <richenlin(at)gmail.com>
  * @Last Modified by: richen
- * @Last Modified time: 2018-03-20 14:17:28
+ * @Last Modified time: 2018-04-12 15:31:10
  */
 
 global.Promise = require('bluebird');
@@ -508,7 +508,7 @@ class liteQ {
             let parsedOptions = helper.parseOptions(this, options);
             let instance = await this.getInstance();
             let result = await instance.find(parsedOptions);
-            return (helper.isArray(result) ? result[0] : result) || {};
+            return result || {};
         } catch (e) {
             return this.error(e);
         }
