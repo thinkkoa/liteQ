@@ -33,6 +33,8 @@
     "istanbul": "^1.1.0-alpha.1",
     "mocha": "^5.0.1",
     "muk": "^0.5.3",
+    "mysql": "^2.16.0",
+    "pg": "^7.4.3",
     "supertest": "^3.0.0"
   },
   "dependencies": {
