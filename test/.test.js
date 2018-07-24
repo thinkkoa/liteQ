@@ -3,7 +3,7 @@
  * @Date: 2018-02-09 16:35:40 
  * @Copyright (c) - <richenlin(at)gmail.com>
  * @Last Modified by: richen
- * @Last Modified time: 2018-07-24 10:43:55
+ * @Last Modified time: 2018-07-24 11:08:46
  */
 const helper = require('../lib/helper.js');
 const liteQ = require('../index.js');
@@ -77,9 +77,9 @@ return model
 
 // .where({id: {'<>': 1, '>=': 2, '>': 0,'<': 100, '<=': 10}}).alias('test').select()
 // .countSelect()
-.join([{from: 'Profile', alias: 'pfile', on: {or: [{profile: 'id'}]}, field: ['id as aid', 'test'], type: 'left'}]).where({'pfile.id':{"<>": ""}}).select({field: ['id']})
+// .join([{from: 'Profile', alias: 'pfile', on: {or: [{profile: 'id'}]}, field: ['id as aid', 'test'], type: 'left'}]).where({'pfile.id':{"<>": ""}}).select({field: ['id']})
 // .field(['id','name']).join([{from: 'Profile', on: {or: [{profile: 'id'}, {name: 'test'}], profile: 'id'}, field: ['id', 'test'], type: 'left'}]).select({field: ['name', 'num']})
-//     .select({field: ['id','name'], join: [{from: 'Profile', on: {or: [{profile: 'id'}, {name: 'test'}], profile: 'id'}, field: ['Profile.id as pid', 'test'], type: 'left'}]})
+    .select({field: ['id','name'], join: [{from: 'Profile', on: {or: [{profile: 'id'}, {name: 'test'}], profile: 'id'}, field: ['Profile.id as pid', 'test'], type: 'left'}]})
 // .field(['id', 'name']).where({id: {'>=': 0}}).group('name').countSelect()
 // .query('select * from user where id = 1')
 // .where({id:1}).increment('num', 1)

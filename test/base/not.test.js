@@ -1,7 +1,7 @@
 /*eslint-disable */
 const knex = require('knex');
 const Test = require('../test-runner.js');
-const baseparser = require('../../lib/parser/base.js');
+const baseparser = require('../../lib/parsers/base.js');
 
 describe('Query Generation ::', function () {
     describe('Grouping statements with NOT', function () {
