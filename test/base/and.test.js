@@ -28,7 +28,6 @@ describe('Query Generation ::', function () {
                             alias: 'User',
                         },
                         parser:baseparser,
-                        client: knex({client: 'mysql'}),
                         query: {
                             where: {firstName: 'foo', lastName: 'bar'}
                         },
@@ -53,7 +52,6 @@ describe('Query Generation ::', function () {
                             alias: 'User',
                         },
                         parser:baseparser,
-                        client: knex({client: 'postgresql'}),
                         query: {
                             where: {firstName: 'foo', lastName: 'bar'}
                         },
@@ -86,7 +84,6 @@ describe('Query Generation ::', function () {
                             method: 'SELECT'
                         },
                         parser:baseparser,
-                        client: knex({client: 'mysql'}),
                         query: {
                             where: {age: {'>': 10, '<=': 80}}
                         },
@@ -112,7 +109,6 @@ describe('Query Generation ::', function () {
                             method: 'SELECT'
                         },
                         parser:baseparser,
-                        client: knex({client: 'postgresql'}),
                         query: {
                             where: {age: {'>': 10, '<=': 80}}
                         },

@@ -3,7 +3,7 @@
  * @Date: 2018-01-31 14:07:54 
  * @Copyright (c) - <richenlin(at)gmail.com>
  * @Last Modified by: richen
- * @Last Modified time: 2018-04-12 15:31:10
+ * @Last Modified time: 2018-07-24 10:15:40
  */
 
 global.Promise = require('bluebird');
@@ -569,7 +569,7 @@ class liteQ {
     async query(sqlStr, params = []) {
         try {
             let instance = await this.getInstance();
-            let result = await instance.native(this.tableName, sqlStr, params);
+            let result = await instance.native(sqlStr, params);
             return result;
         } catch (e) {
             return this.error(e);

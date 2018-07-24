@@ -35,7 +35,7 @@ module.exports = function (test, cb) {
 
         let options = liteQ.helper.parseOptions(model, outcome.options);
         return genPromise(function*(){
-            let result = yield parser.buildSql(outcome.config, outcome.client, options);
+            let result = yield parser.buildSql(outcome.config, options);
             try {
                 echo([outcome.dialect, result])
                 assert.equal(result, outcome.sql);

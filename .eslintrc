@@ -54,7 +54,7 @@
   
       // 缩进空格
       // `SwitchCase`时需要一个空格
-      "indent": [2, 4, {"SwitchCase": 1, "MemberExpression": 0}],
+      "indent": [0, 4, {"SwitchCase": 1, "MemberExpression": 0}],
   
       // 分号之间的空格
       "key-spacing": [2, { "beforeColon": false, "afterColon": true }],

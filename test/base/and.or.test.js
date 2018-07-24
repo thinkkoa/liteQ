@@ -28,7 +28,6 @@ describe('Query Generation ::', function () {
                             alias: 'User',
                         },
                         parser:baseparser,
-                        client: knex({client: 'mysql'}),
                         query: {
                             where: {firstName: 'foo', lastName: 'bar', or: [{name: 'foo'}, {memo: 'bar'}]}
                         },
@@ -53,7 +52,6 @@ describe('Query Generation ::', function () {
                             alias: 'User',
                         },
                         parser:baseparser,
-                        client: knex({client: 'postgresql'}),
                         query: {
                             where: {firstName: 'foo', lastName: 'bar', or: [{name: 'foo'}, {memo: 'bar'}]}
                         },

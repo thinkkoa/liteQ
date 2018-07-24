@@ -27,7 +27,6 @@ describe('Query Generation ::', function () {
                             alias: 'User',
                         },
                         parser:baseparser,
-                        client: knex({client: 'mysql'}),
                         query: {
                             where: {name: {'like': '%rr%'}}
                         },
@@ -52,7 +51,6 @@ describe('Query Generation ::', function () {
                             alias: 'User',
                         },
                         parser:baseparser,
-                        client: knex({client: 'postgresql'}),
                         query: {
                             where: {name: {'like': '%rr%'}}
                         },
@@ -83,7 +81,6 @@ describe('Query Generation ::', function () {
                             alias: 'User',
                         },
                         parser:baseparser,
-                        client: knex({client: 'mysql'}),
                         query: {
                             where: {name: {'like': '%rr'}}
                         },
@@ -108,7 +105,6 @@ describe('Query Generation ::', function () {
                             alias: 'User',
                         },
                         parser:baseparser,
-                        client: knex({client: 'postgresql'}),
                         query: {
                             where: {name: {'like': '%rr'}}
                         },
@@ -139,7 +135,6 @@ describe('Query Generation ::', function () {
                             alias: 'User',
                         },
                         parser:baseparser,
-                        client: knex({client: 'mysql'}),
                         query: {
                             where: {name: {'like': 'rr%'}}
                         },
@@ -164,7 +159,6 @@ describe('Query Generation ::', function () {
                             alias: 'User',
                         },
                         parser:baseparser,
-                        client: knex({client: 'postgresql'}),
                         query: {
                             where: {name: {'like': 'rr%'}}
                         },

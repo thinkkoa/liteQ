@@ -3,7 +3,7 @@
  * @Date: 2018-02-09 16:35:40 
  * @Copyright (c) - <richenlin(at)gmail.com>
  * @Last Modified by: richen
- * @Last Modified time: 2018-03-20 15:55:29
+ * @Last Modified time: 2018-07-24 10:43:55
  */
 const helper = require('../lib/helper.js');
 const liteQ = require('../index.js');
@@ -45,17 +45,17 @@ process.env.NODE_ENV = 'development';
 //     db_prefix: ''
 // });
 const model = new user({
-    db_type: 'mssql',
+    db_type: 'mysql',
     db_host: '192.168.0.155',
-    db_port: 1433,
-    db_name: 'model',
-    db_user: 'sa',
-    db_pwd: 'Richenlin123$',
+    db_port: 3306,
+    db_name: 'test',
+    db_user: 'root',
+    db_pwd: 'richenlin',
     db_prefix: ''
 });
 
 //查询测试
-let now = Date.now(), ss = 0;
+let now = Date.now();
 return model
 // .where({id: {'<>': 1, '>=': 0}, name: 'rrrrrrr', or: [{name: 'aa'}, {name: 'aaa'}], not: {name: 1, id: 2}, notin: {name: [1,2,3]}}).find()
 // .where({or: [{name: {'like': '%aa%'}}, {memo: {'like': '%aa%'}}]}).find()
@@ -66,7 +66,7 @@ return model
 // .where({not: {name: 'rrrrrrrrrrrrr', id: 1}}).select()
 // .where({notin: {'id': [1,2,3]}}).select()
 // .where({name: {'like': '%a'}}).select()
-.where({id: [1,2,3]}).select()
+// .where({id: [1,2,3]}).select()
 
 // .where({id: {'<>': 1, '>=': 0, notin: [1,2,3]}, name: ['aa', 'rrrrrrr'], notin: {'id': [1,2,3], num: [1,2,3]}, not: {name: '', num: [1,2,3]}, memo: {'like': '%a'}, or: [{name: 'aa', id: 1}, {name: 'rrrrrrr', id: {'>': 1}}]}).find()
 // .where({'and': {id: 1, name: 'aa'}}).find()//and做key
@@ -77,18 +77,18 @@ return model
 
 // .where({id: {'<>': 1, '>=': 2, '>': 0,'<': 100, '<=': 10}}).alias('test').select()
 // .countSelect()
-// .join([{from: 'Profile', alias: 'pfile', on: {or: [{profile: 'id'}]}, field: ['id as aid', 'test'], type: 'left'}]).where({'pfile.id':{"<>": ""}}).select({field: ['id']})
+.join([{from: 'Profile', alias: 'pfile', on: {or: [{profile: 'id'}]}, field: ['id as aid', 'test'], type: 'left'}]).where({'pfile.id':{"<>": ""}}).select({field: ['id']})
 // .field(['id','name']).join([{from: 'Profile', on: {or: [{profile: 'id'}, {name: 'test'}], profile: 'id'}, field: ['id', 'test'], type: 'left'}]).select({field: ['name', 'num']})
 //     .select({field: ['id','name'], join: [{from: 'Profile', on: {or: [{profile: 'id'}, {name: 'test'}], profile: 'id'}, field: ['Profile.id as pid', 'test'], type: 'left'}]})
 // .field(['id', 'name']).where({id: {'>=': 0}}).group('name').countSelect()
-// .query('select * from think_user where id = 1')
+// .query('select * from user where id = 1')
 // .where({id:1}).increment('num', 1)
 //     .where({id:1}).decrement('num', 1)
-//.add({name: 'qqqesddfsdqqq'})
+// .add({name: 'qqqesddfsdqqq'})
 // .query('select * from mobilemd5 where phone_md5=\'15667590000\'')
 
 .then(ress => {
-    echo(`${Date.now() - ss}ms -- ${JSON.stringify(ress)}`);
+    echo(`${Date.now() - now}ms -- ${JSON.stringify(ress)}`);
     process.exit();
 }).catch(e => {
     // echo(e);

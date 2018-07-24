@@ -38,7 +38,7 @@
   "dependencies": {
     "bluebird": "^3.5.1",
     "co": "^4.6.0",
-    "knex": "^0.14.3",
+    "knex": "^0.15.2",
     "think_lib": "^2.x.x",
     "think_logger": "^2.x.x"
   },

@@ -29,7 +29,6 @@ describe('Query Generation ::', function () {
                             targetField: 'id'
                         },
                         parser:baseparser,
-                        client: knex({client: 'mysql'}),
                         query: {
                             where: {id: {'>=': 0}}
                         },
@@ -55,7 +54,6 @@ describe('Query Generation ::', function () {
                             targetField: 'id'
                         },
                         parser:baseparser,
-                        client: knex({client: 'postgresql'}),
                         query: {
                             where: {id: {'>=': 0}}
                         },

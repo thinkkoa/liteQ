@@ -27,7 +27,6 @@ describe('Query Generation ::', function () {
                             alias: 'User',
                         },
                         parser: baseparser,
-                        client: knex({client: 'mysql'}),
                         query: {
                             where: {not: {firstName: 'foo', lastName: 'bar'}}
                         },
@@ -52,7 +51,6 @@ describe('Query Generation ::', function () {
                             alias: 'User',
                         },
                         parser: baseparser,
-                        client: knex({client: 'postgresql'}),
                         query: {
                             where: {not: {firstName: 'foo', lastName: 'bar'}}
                         },

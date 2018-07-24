@@ -28,7 +28,6 @@ describe('Query Generation ::', function () {
                             alias: 'User'
                         },
                         parser:baseparser,
-                        client: knex({client: 'mysql'}),
                         query: {
                             field: ['id'],
                             where: {'pfile.id':{"<>": ""}},
@@ -55,7 +54,6 @@ describe('Query Generation ::', function () {
                             alias: 'User'
                         },
                         parser:baseparser,
-                        client: knex({client: 'postgresql'}),
                         query: {
                             field: ['id'],
                             where: {'pfile.id':{"<>": ""}},
@@ -88,7 +86,6 @@ describe('Query Generation ::', function () {
                             alias: 'User'
                         },
                         parser:baseparser,
-                        client: knex({client: 'mysql'}),
                         query: {
                             field: ['id','name', 'num'],
                             join: [{from: 'Profile', on: {or: [{profile: 'id'}, {name: 'test'}], profile: 'id'}, field: ['id', 'test'], type: 'left'}]
@@ -114,7 +111,6 @@ describe('Query Generation ::', function () {
                             alias: 'User'
                         },
                         parser:baseparser,
-                        client: knex({client: 'postgresql'}),
                         query: {
                             field: ['id','name', 'num'],
                             join: [{from: 'Profile', on: {or: [{profile: 'id'}, {name: 'test'}], profile: 'id'}, field: ['id', 'test'], type: 'left'}]
