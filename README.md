@@ -5,6 +5,8 @@
 
 QueryBuilder for JavaScript. Supports MySQL, PostgreSQL, MariaDB, SQLite, MS SQL Server, Oracle and more. Works in NodeJS.
 
+-> 2.x 性能提升50%!!!
+
 # Installation
 
 ```
@@ -15,7 +17,7 @@ npm install liteq --save
 
 ### 创建模型
 
-创建 user.js文件，模板代码如下：
+创建 user.js文件，示例代码如下：
 
 
 ```js
