@@ -3,10 +3,10 @@
  * @Date: 2018-01-31 14:07:54 
  * @Copyright (c) - <richenlin(at)gmail.com>
  * @Last Modified by: richen
- * @Last Modified time: 2018-07-24 10:15:40
+ * @Last Modified time: 2019-01-03 11:16:45
  */
 
-global.Promise = require('bluebird');
+// global.Promise = require('bluebird');
 const logger = require('think_logger');
 const helper = require('./lib/helper.js');
 const adapter = require('./lib/adapter.js');
