@@ -3,7 +3,7 @@
  * @Date: 2018-01-31 14:07:54 
  * @Copyright (c) - <richenlin(at)gmail.com>
  * @Last Modified by: richen
- * @Last Modified time: 2019-01-03 11:16:45
+ * @Last Modified time: 2019-02-18 15:12:45
  */
 
 // global.Promise = require('bluebird');
@@ -562,7 +562,7 @@ class liteQ {
      * mysql  TestModel.query('select ?, ? from test where id=?', ['id', 'name', 1]);
      * mongo  TestModel.query('db.test.find()');
      * @param {any} sqlStr 
-     * @param {any} [params=[]] 
+     * @param {any} [params=[]] binding
      * @returns 
      * @memberof liteQ
      */
