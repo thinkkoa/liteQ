@@ -3,7 +3,7 @@
  * @Date: 2018-01-31 14:07:54 
  * @Copyright (c) - <richenlin(at)gmail.com>
  * @Last Modified by: richen
- * @Last Modified time: 2019-02-18 15:12:45
+ * @Last Modified time: 2019-02-21 15:26:18
  */
 
 // global.Promise = require('bluebird');
@@ -22,8 +22,6 @@ class liteQ {
      * @memberof liteQ
      */
     constructor(...args) {
-        // 是否开启迁移(migrate方法可用)
-        this.safe = true;
         // 数据表字段信息
         this.fields = {
             id: {
@@ -33,30 +31,31 @@ class liteQ {
         };
         // 主键
         this.pk = '';
-        // init
-        this.init(...args);
-
-        // 模型名称
-        if (!this.modelName) {
-            throw Error('modelName is undefined.');
-        }
         // 数据源配置
-        this.config = this.config || args[0] || {};
-        // 数据表名
-        this.tableName = this.tableName || this.getTableName();
+        this.config = args[0];
         // SQL操作项
         this.options = {};
         // Adapter实例
         this.instance = null;
+        // init
+        this.init(...args);
+        if (!this.config) {
+            throw Error('model config is undefined.');
+        }
+        // 模型名称
+        if (!this.modelName) {
+            throw Error('modelName is undefined.');
+        }
+        // 数据表名
+        this.tableName = this.tableName || this.getTableName();
     }
     /**
      * 
      * 
-     * @param {any} config 
      * @memberof liteQ
      */
-    init(config) {
-        this.config = config;
+    init(...args) {
+
     }
     /**
      * 
