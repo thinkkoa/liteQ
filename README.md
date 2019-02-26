@@ -72,6 +72,8 @@ result = await userModel.where({"name": {"<>": ""}}).select(); //query name is n
 
 
 ```
+# document
+https://thinkkoa.org/orm/query.jhtml
 
 # License
 
