@@ -29,9 +29,9 @@
   "devDependencies": {
     "assert": "^1.4.1",
     "async": "^2.6.0",
-    "eslint": "^4.18.1",
+    "eslint": "^5.14.1",
     "istanbul": "^1.1.0-alpha.1",
-    "mocha": "^5.0.1",
+    "mocha": "^6.0.2",
     "muk": "^0.5.3",
     "mysql": "^2.16.0",
     "pg": "^7.8.1",
