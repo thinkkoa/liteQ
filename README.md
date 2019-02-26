@@ -1,7 +1,7 @@
 # liteQ
 
 [![npm version](https://badge.fury.io/js/liteq.svg)](https://badge.fury.io/js/liteq)
-[![Build Status](https://travis-ci.org/thinkkoa/liteQ.svg?branch=master)](https://travis-ci.org/thinkkoa/liteQ)
+[![Build Status](https://travis-ci.org/thinkkoa/liteQ.svg?branch=master)](https://travis-ci.org/thinkkoa/liteQ) [![Greenkeeper badge](https://badges.greenkeeper.io/thinkkoa/liteQ.svg)](https://greenkeeper.io/)
 
 QueryBuilder for JavaScript. Supports MySQL, PostgreSQL, MariaDB, SQLite, MS SQL Server, Oracle and more. Works in NodeJS.
 
