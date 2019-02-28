@@ -3,7 +3,7 @@
  * @Date: 2018-01-31 14:07:54 
  * @Copyright (c) - <richenlin(at)gmail.com>
  * @Last Modified by: richen
- * @Last Modified time: 2019-02-26 15:37:12
+ * @Last Modified time: 2019-02-28 09:33:24
  */
 
 // global.Promise = require('bluebird');
@@ -32,7 +32,7 @@ class liteQ {
         // 主键
         this.pk = '';
         // 数据源配置
-        this.config = args[0];
+        this.config = args[0] ? args[0] : null;
         // SQL操作项
         this.options = {};
         // Adapter实例
@@ -568,6 +568,12 @@ class liteQ {
     async query(sqlStr, params = []) {
         try {
             let instance = await this.getInstance();
+            if (helper.isEmpty(params)){
+                logger.warn('recommended use of the bind variable pattern.');
+            }
+            if ((/[&(--);]/).test(sqlStr)) {
+                sqlStr = sqlStr.replace(/&/g, '&amp;').replace(/;/g, '').replace(/--/g, '&minus;&minus;');
+            }
             let result = await instance.native(sqlStr, params);
             return result;
         } catch (e) {
@@ -593,6 +599,29 @@ class liteQ {
             return result;
         } catch (e) {
             await instance.rollback();
+            return this.error(e);
+        }
+    }
+
+    /**
+     * 数据迁移
+     *
+     * @param {*} sqlStr
+     * @returns
+     * @memberof liteQ
+     */
+    async migrate(sqlStr){
+        try {
+            let instance = await this.getInstance();
+            let schema = {
+                table: this.tableName,
+                name: this.modelName,
+                fields: this.fields,
+                dbtype: this.config.db_type
+            };
+            let result = await instance.migrate(schema, sqlStr);
+            return result;
+        } catch (e) {
             return this.error(e);
         }
     }
