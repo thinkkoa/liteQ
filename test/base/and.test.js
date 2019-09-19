@@ -20,18 +20,18 @@ describe('Query Generation ::', function () {
                             db_pwd: '',
                             db_prefix: 'think_',
                             db_charset: 'utf8',
-                            db_ext_config: {safe: true, db_log_sql: true, db_pool_size: 10}
+                            db_ext_config: { safe: true, db_log_sql: true, db_pool_size: 10 }
                         },
                         options: {
                             method: 'SELECT',
                             table: 'think_user',
                             alias: 'User',
                         },
-                        parser:baseparser,
+                        parser: baseparser,
                         query: {
-                            where: {firstName: 'foo', lastName: 'bar'}
+                            where: { firstName: 'foo', lastName: 'bar' }
                         },
-                        sql: "select * from `think_user` as `User` where `User`.`firstName` = 'foo' and `User`.`lastName` = 'bar'"
+                        sql: "select `id` from `think_user` as `User` where `User`.`firstName` = 'foo' and `User`.`lastName` = 'bar'"
                     },
                     {
                         dialect: 'postgresql',
@@ -44,18 +44,18 @@ describe('Query Generation ::', function () {
                             db_pwd: '',
                             db_prefix: 'think_',
                             db_charset: 'utf8',
-                            db_ext_config: {safe: true, db_log_sql: true, db_pool_size: 10}
+                            db_ext_config: { safe: true, db_log_sql: true, db_pool_size: 10 }
                         },
                         options: {
                             method: 'SELECT',
                             table: 'think_user',
                             alias: 'User',
                         },
-                        parser:baseparser,
+                        parser: baseparser,
                         query: {
-                            where: {firstName: 'foo', lastName: 'bar'}
+                            where: { firstName: 'foo', lastName: 'bar' }
                         },
-                        sql: "select * from \"think_user\" as \"User\" where \"User\".\"firstName\" = 'foo' and \"User\".\"lastName\" = 'bar'"
+                        sql: "select \"id\" from \"think_user\" as \"User\" where \"User\".\"firstName\" = 'foo' and \"User\".\"lastName\" = 'bar'"
                     }
                 ]
             }, done);
@@ -75,7 +75,7 @@ describe('Query Generation ::', function () {
                             db_pwd: '',
                             db_prefix: 'think_',
                             db_charset: 'utf8',
-                            db_ext_config: {safe: true, db_log_sql: true, db_pool_size: 10}
+                            db_ext_config: { safe: true, db_log_sql: true, db_pool_size: 10 }
                         },
                         options: {
                             method: 'SELECT',
@@ -83,11 +83,11 @@ describe('Query Generation ::', function () {
                             alias: 'User',
                             method: 'SELECT'
                         },
-                        parser:baseparser,
+                        parser: baseparser,
                         query: {
-                            where: {age: {'>': 10, '<=': 80}}
+                            where: { age: { '>': 10, '<=': 80 } }
                         },
-                        sql: "select * from `think_user` as `User` where `User`.`age` > 10 and `User`.`age` <= 80"
+                        sql: "select `id` from `think_user` as `User` where `User`.`age` > 10 and `User`.`age` <= 80"
                     },
                     {
                         dialect: 'postgresql',
@@ -100,7 +100,7 @@ describe('Query Generation ::', function () {
                             db_pwd: '',
                             db_prefix: 'think_',
                             db_charset: 'utf8',
-                            db_ext_config: {safe: true, db_log_sql: true, db_pool_size: 10}
+                            db_ext_config: { safe: true, db_log_sql: true, db_pool_size: 10 }
                         },
                         options: {
                             method: 'SELECT',
@@ -108,11 +108,11 @@ describe('Query Generation ::', function () {
                             alias: 'User',
                             method: 'SELECT'
                         },
-                        parser:baseparser,
+                        parser: baseparser,
                         query: {
-                            where: {age: {'>': 10, '<=': 80}}
+                            where: { age: { '>': 10, '<=': 80 } }
                         },
-                        sql: "select * from \"think_user\" as \"User\" where \"User\".\"age\" > 10 and \"User\".\"age\" <= 80"
+                        sql: "select \"id\" from \"think_user\" as \"User\" where \"User\".\"age\" > 10 and \"User\".\"age\" <= 80"
                     }
                 ]
             }, done);

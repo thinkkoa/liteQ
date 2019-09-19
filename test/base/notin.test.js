@@ -19,7 +19,7 @@ describe('Query Generation ::', function () {
                             db_pwd: '',
                             db_prefix: 'think_',
                             db_charset: 'utf8',
-                            db_ext_config: {safe: true, db_log_sql: true, db_pool_size: 10}
+                            db_ext_config: { safe: true, db_log_sql: true, db_pool_size: 10 }
                         },
                         options: {
                             method: 'SELECT',
@@ -28,9 +28,9 @@ describe('Query Generation ::', function () {
                         },
                         parser: baseparser,
                         query: {
-                            where: {notin: {'id': [1,2,3]}}
+                            where: { notin: { 'id': [1, 2, 3] } }
                         },
-                        sql: "select * from `think_user` as `User` where `User`.`id` not in (1, 2, 3)"
+                        sql: "select `id` from `think_user` as `User` where `User`.`id` not in (1, 2, 3)"
                     },
                     {
                         dialect: 'postgresql',
@@ -43,7 +43,7 @@ describe('Query Generation ::', function () {
                             db_pwd: '',
                             db_prefix: 'think_',
                             db_charset: 'utf8',
-                            db_ext_config: {safe: true, db_log_sql: true, db_pool_size: 10}
+                            db_ext_config: { safe: true, db_log_sql: true, db_pool_size: 10 }
                         },
                         options: {
                             method: 'SELECT',
@@ -52,9 +52,9 @@ describe('Query Generation ::', function () {
                         },
                         parser: baseparser,
                         query: {
-                            where: {notin: {'id': [1,2,3]}}
+                            where: { notin: { 'id': [1, 2, 3] } }
                         },
-                        sql: "select * from \"think_user\" as \"User\" where \"User\".\"id\" not in (1, 2, 3)"
+                        sql: "select \"id\" from \"think_user\" as \"User\" where \"User\".\"id\" not in (1, 2, 3)"
                     }
                 ]
             }, done);
