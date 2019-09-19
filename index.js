@@ -3,7 +3,7 @@
  * @Date: 2018-01-31 14:07:54 
  * @Copyright (c) - <richenlin(at)gmail.com>
  * @Last Modified by: richen
- * @Last Modified time: 2019-02-28 09:33:24
+ * @Last Modified time: 2019-07-02 18:00:13
  */
 
 // global.Promise = require('bluebird');
@@ -31,17 +31,21 @@ class liteQ {
         };
         // 主键
         this.pk = '';
-        // 数据源配置
-        this.config = args[0] ? args[0] : null;
+        // init
+        this.init(...args);
+
+        if (!this.config) {
+            // 数据源配置
+            if (args[0]) {
+                this.config = args[0];
+            } else {
+                throw Error('model config is undefined.');
+            }
+        }
         // SQL操作项
         this.options = {};
         // Adapter实例
         this.instance = null;
-        // init
-        this.init(...args);
-        if (!this.config) {
-            throw Error('model config is undefined.');
-        }
         // 模型名称
         if (!this.modelName) {
             throw Error('modelName is undefined.');
@@ -568,7 +572,7 @@ class liteQ {
     async query(sqlStr, params = []) {
         try {
             let instance = await this.getInstance();
-            if (helper.isEmpty(params)){
+            if (helper.isEmpty(params)) {
                 logger.warn('recommended use of the bind variable pattern.');
             }
             if ((/[&(--);]/).test(sqlStr)) {
@@ -610,7 +614,7 @@ class liteQ {
      * @returns
      * @memberof liteQ
      */
-    async migrate(sqlStr){
+    async migrate(sqlStr) {
         try {
             let instance = await this.getInstance();
             let schema = {
