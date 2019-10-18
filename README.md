@@ -5,7 +5,17 @@
 
 QueryBuilder for JavaScript. Supports MySQL, PostgreSQL, MariaDB, SQLite, MS SQL Server, Oracle and more. Works in NodeJS.
 
--> 2.x 性能提升50%!!!
+<table>
+    <tr>
+      <td><img width="100" src="https://thinkkoa.org/img/mariadb.png"/></td>
+      <td><img width="100" src="https://thinkkoa.org/img/mysql.png"/></td>
+      <td><img width="100" src="https://thinkkoa.org/img/postgresql.png"/></td>
+      <td><img width="100" src="https://thinkkoa.org/img/sqlite.png"/></td>
+      <td><img width="100" src="https://thinkkoa.org/img/sqlserver.png"/></td>
+      <td><img width="100" src="https://thinkkoa.org/img/oracle.png"/></td>
+      <td><img width="100" src="https://thinkkoa.org/img/mongodb.png"/></td>
+    </tr>
+</table>
 
 # Installation
 
