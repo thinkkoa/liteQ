@@ -27,19 +27,19 @@
     "node": ">8.0.0"
   },
   "devDependencies": {
-    "assert": "^1.4.1",
-    "async": "^2.6.0",
-    "eslint": "^4.18.1",
+    "assert": "^2.0.0",
+    "async": "^3.1.0",
+    "eslint": "^6.7.1",
     "istanbul": "^1.1.0-alpha.1",
-    "mocha": "^5.0.1",
+    "mocha": "^6.2.2",
     "muk": "^0.5.3",
-    "mysql": "^2.16.0",
-    "pg": "^7.8.1",
-    "supertest": "^3.0.0"
+    "mysql": "^2.17.1",
+    "pg": "^7.14.0",
+    "supertest": "^4.0.2"
   },
   "dependencies": {
     "co": "^4.6.0",
-    "knex": "^0.19.4",
+    "knex": "^0.20.2",
     "think_lib": "^2.x.x",
     "think_logger": "^2.x.x"
   },
