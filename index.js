@@ -564,7 +564,8 @@ class liteQ {
     /**
      * build sql string
      *
-     * @param {*} options {method: SELECT | ADD | UPDATE | COUNT | SUM | DECREMENT | INCREMENT}
+     * @param {*} options 
+     * {method: SELECT | ADD | UPDATE | COUNT | SUM | DECREMENT | INCREMENT}
      * @param {*} data
      * @returns
      * @memberof liteQ
