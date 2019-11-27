@@ -13,7 +13,7 @@ QueryBuilder for Node.js. Supports MySQL, PostgreSQL, MariaDB, SQLite, MS SQL Se
       <td><img width="100" src="https://thinkkoa.org/img/sqlite.png"/></td>
       <td><img width="100" src="https://thinkkoa.org/img/sqlserver.png"/></td>
       <td><img width="100" src="https://thinkkoa.org/img/oracle.png"/></td>
-      <td><img width="100" src="https://thinkkoa.org/img/mongodb.png"/></td>
+<!--       <td><img width="100" src="https://thinkkoa.org/img/mongodb.png"/></td> -->
     </tr>
 </table>
 
