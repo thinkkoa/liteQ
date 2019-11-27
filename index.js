@@ -560,6 +560,35 @@ class liteQ {
             return this.error(e);
         }
     }
+
+    /**
+     * build sql string
+     *
+     * @param {*} options {method: SELECT | ADD | UPDATE | COUNT | SUM | DECREMENT | INCREMENT}
+     * @param {*} data
+     * @returns
+     * @memberof liteQ
+     */
+    async sql(options = {}, data) {
+        try {
+            if (!options.method) {
+                options.method = 'SELECT';
+            }
+            if (['ADD', 'UPDATE'].includes(options.method) && helper.isEmpty(data)) {
+                return this.error('paramer data is empty');
+            }
+            if (['COUNT', 'SUM', 'DECREMENT', 'INCREMENT'].includes(options.method) && helper.isEmpty(data)) {
+                return this.error('paramer field is empty');
+            }
+            let parsedOptions = helper.parseOptions(this, options);
+            let instance = await this.getInstance();
+            let result = await instance.sql(parsedOptions, data);
+            return result || [];
+        } catch (e) {
+            return this.error(e);
+        }
+    }
+
     /**
      * 原生语句查询
      * mysql  TestModel.query('select ?, ? from test where id=?', ['id', 'name', 1]);
