@@ -562,19 +562,47 @@ class liteQ {
     }
 
     /**
-     * build sql string
+     * 生成sqlString
      *
      * @param {*} options 
-     * {method: SELECT | ADD | UPDATE | COUNT | SUM | DECREMENT | INCREMENT}
+     * {method: find | select | add | update | count | sum | decrement | increment}
      * @param {*} data
      * @returns
      * @memberof liteQ
      */
     async sql(options = {}, data) {
         try {
-            if (!options.method) {
-                options.method = 'SELECT';
+            switch (options.method) {
+                case 'find':
+                    options.limit = [0, 1];
+                    options.method = 'SELECT';
+                    break;
+                case 'select':
+                    options.method = 'SELECT';
+                    break;
+                case 'add':
+                    options.method = 'ADD';
+                    break;
+                case 'update':
+                    options.method = 'UPDATE';
+                    break;
+                case 'count':
+                    options.method = 'COUNT';
+                    break;
+                case 'sum':
+                    options.method = 'SUM';
+                    break;
+                case 'decrement':
+                    options.method = 'DECREMENT';
+                    break;
+                case 'increment':
+                    options.method = 'INCREMENT';
+                    break;
+                default:
+                    options.method = 'SELECT';
+                    break;
             }
+
             if (['ADD', 'UPDATE'].includes(options.method) && helper.isEmpty(data)) {
                 return this.error('paramer data is empty');
             }
