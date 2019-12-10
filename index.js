@@ -58,7 +58,7 @@ class liteQ {
      * 
      * @memberof liteQ
      */
-    init(...args) {
+    init() {
 
     }
     /**
@@ -120,9 +120,10 @@ class liteQ {
     getPk() {
         try {
             if (helper.isEmpty(this.pk)) {
-                for (let n in this.fields) {
-                    if (this.fields[n].pk !== undefined && this.fields[n].pk) {
+                for (const n in this.fields) {
+                    if (this.fields[n] && this.fields[n].pk === true) {
                         this.pk = n;
+                        break;
                     }
                 }
             }
@@ -472,28 +473,31 @@ class liteQ {
      * @returns 
      * @memberof liteQ
      */
-    async count(field, options) {
+    async count(field, options = {}) {
         try {
             let parsedOptions = helper.parseOptions(this, options);
             let instance = await this.getInstance();
+            field = field || this.getPk();
             let result = await instance.count(field, parsedOptions);
             return result || 0;
         } catch (e) {
             return this.error(e);
         }
     }
+
     /**
      * 统计字段求和
-     * 
-     * @param {any} field 
-     * @param {any} options 
-     * @returns 
+     *
+     * @param {*} field
+     * @param {*} [options={}]
+     * @returns
      * @memberof liteQ
      */
-    async sum(field, options) {
+    async sum(field, options = {}) {
         try {
             let parsedOptions = helper.parseOptions(this, options);
             let instance = await this.getInstance();
+            field = field || this.getPk();
             let result = await instance.sum(field, parsedOptions);
             return result || 0;
         } catch (e) {
