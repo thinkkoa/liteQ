@@ -1,11 +1,11 @@
 {
   "name": "liteq",
-  "version": "2.2.5",
+  "version": "2.2.6",
   "description": "QueryBuilder for JavaScript. Supports MySQL, PostgreSQL, MariaDB, SQLite, MS SQL Server, Oracle and more. Works in NodeJS.",
   "main": "index.js",
   "scripts": {
     "test": "npm run eslint && npm run test-cov",
-    "test-cov": "istanbul cover ./node_modules/mocha/bin/_mocha -- -t 50000 --recursive  -R spec test/",
+    "test-cov": "mocha -- -t 50000 --recursive  -R spec test/",
     "prepublish": "npm test",
     "eslint": "eslint lib/"
   },
@@ -29,17 +29,16 @@
   "devDependencies": {
     "assert": "^2.0.0",
     "async": "^3.1.0",
-    "eslint": "^6.7.1",
-    "istanbul": "^1.1.0-alpha.1",
+    "eslint": "^6.8.0",
     "mocha": "^6.2.2",
     "muk": "^0.5.3",
-    "mysql2": "^2.17.1",
-    "pg": "^7.14.0",
+    "mysql2": "^2.1.0",
+    "pg": "^7.17.0",
     "supertest": "^4.0.2"
   },
   "dependencies": {
     "co": "^4.6.0",
-    "knex": "^0.20.3",
+    "knex": "^0.20.6",
     "think_lib": "^2.x.x",
     "think_logger": "^2.x.x"
   },
