@@ -1,6 +1,6 @@
 {
   "name": "liteq",
-  "version": "2.2.6",
+  "version": "2.2.7",
   "description": "QueryBuilder for JavaScript. Supports MySQL, PostgreSQL, MariaDB, SQLite, MS SQL Server, Oracle and more. Works in NodeJS.",
   "main": "index.js",
   "scripts": {
