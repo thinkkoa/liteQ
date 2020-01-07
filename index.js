@@ -23,14 +23,14 @@ class liteQ {
      */
     constructor(...args) {
         // 数据表字段信息
-        this.fields = {
+        this.fields = this.fields || {
             id: {
                 type: 'integer',
                 pk: true
             }
         };
         // 主键
-        this.pk = '';
+        this.pk = this.pk || '';
         // init
         this.init(...args);
 
