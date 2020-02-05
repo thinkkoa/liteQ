@@ -10,6 +10,9 @@
 const logger = require('think_logger');
 const helper = require('./lib/helper.js');
 const adapter = require('./lib/adapter.js');
+//Singleton
+var __LiteQInstances = {};
+
 /**
  * 
  * 
@@ -18,7 +21,7 @@ const adapter = require('./lib/adapter.js');
 class liteQ {
     /**
      * Creates an instance of liteQ.
-     * @param {any} args 
+     * @param {any[]} args 
      * @memberof liteQ
      */
     constructor(...args) {
@@ -61,8 +64,9 @@ class liteQ {
     init() {
 
     }
+
     /**
-     * 
+     * Get an adapter instance.
      * 
      * @param {boolean} [forceNew=false] 
      * @returns 
@@ -70,10 +74,26 @@ class liteQ {
      */
     async getInstance(forceNew = false) {
         if (!this.instance) {
-            this.instance = await adapter.getInstance(this.config, forceNew);
+            this.instance = await adapter.getInstance(this.config, forceNew, __LiteQInstances);
         }
         return this.instance;
     }
+
+    /**
+     * Setting up an adapter instance.
+     *
+     * @param {*} ins
+     * @returns
+     * @memberof liteQ
+     */
+    setInstance(ins) {
+        if (!ins || !ins.knexClient) {
+            return this.error('The parameter passed in must be an instance of the adapter!');
+        }
+        this.instance = ins;
+        return this;
+    }
+
     /**
      * 
      * 
@@ -132,6 +152,22 @@ class liteQ {
             return this.error(e);
         }
     }
+
+    /**
+     *
+     *
+     * @param {*} modelCls
+     * @returns
+     * @memberof liteQ
+     */
+    model(modelCls) {
+        if (!modelCls || !modelCls.config) {
+            return this.error('The parameter passed must be an instance of a class!');
+        }
+        modelCls.instance = this.instance;
+        return modelCls;
+    }
+
     /**
      * 分拣列
      * field(['aaa', 'bbb', 'ccc'])
@@ -222,8 +258,8 @@ class liteQ {
                     limit = skip[1];
                     skip = skip[0];
                 } else {
-                    skip = 0;
                     limit = skip;
+                    skip = 0;
                 }
             }
             if (limit === undefined) {
@@ -649,23 +685,21 @@ class liteQ {
     /**
      * 执行事务
      * 
-     * @param {any} fn 
+     * @param {Function} fn 
      * @returns 
      * @memberof liteQ
      */
     async transaction(fn) {
         let instance = await this.getInstance(true);
-        if (!this.instance.startTrans) {
-            return this.error('Adapter is not support transaction');
-        }
         try {
-            await instance.startTrans();
-            let result = await helper.thinkco(fn(instance));
-            await instance.commit();
+            let result = await fn(instance);
+            await instance.knexClient.commit();
             return result;
         } catch (e) {
-            await instance.rollback();
+            await instance.knexClient.rollback();
             return this.error(e);
+        } finally {
+            this.instance = null;
         }
     }
 
