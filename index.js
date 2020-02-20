@@ -90,8 +90,9 @@ class liteQ {
         if (!ins || !ins.knexClient) {
             return this.error('The parameter passed in must be an instance of the adapter!');
         }
-        this.instance = ins;
-        return this;
+        const model = Object.create(this);
+        model.instance = ins;
+        return model;
     }
 
     /**
@@ -151,21 +152,6 @@ class liteQ {
         } catch (e) {
             return this.error(e);
         }
-    }
-
-    /**
-     *
-     *
-     * @param {*} modelCls
-     * @returns
-     * @memberof liteQ
-     */
-    model(modelCls) {
-        if (!modelCls || !modelCls.config) {
-            return this.error('The parameter passed must be an instance of a class!');
-        }
-        modelCls.instance = this.instance;
-        return modelCls;
     }
 
     /**

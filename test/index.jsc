@@ -26,7 +26,6 @@ return usermodel1.transaction(
         // }
         // return Promise.all(ps);
         await usermodel1.add({ name: '111111111' });
-        // await usermodel1.model(usermodel2).add({ name: 'test', aa: 1 });
         await usermodel2.setInstance(t).add({ name: 'test', aa: 1 });
         //     //跨模型执行
         //     await usermodel1.add({name: '11111111111111111'});
