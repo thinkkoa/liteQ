@@ -10,8 +10,6 @@
 const logger = require('think_logger');
 const helper = require('./lib/helper.js');
 const adapter = require('./lib/adapter.js');
-//Singleton
-var __LiteQInstances = {};
 
 /**
  * 
@@ -73,8 +71,8 @@ class liteQ {
      * @memberof liteQ
      */
     async getInstance(forceNew = false) {
-        if (!this.instance) {
-            this.instance = await adapter.getInstance(this.config, forceNew, __LiteQInstances);
+        if (!this.instance || forceNew) {
+            this.instance = await adapter.getInstance(this.config, forceNew);
         }
         return this.instance;
     }
@@ -170,7 +168,7 @@ class liteQ {
                 values = values.replace(/ +/g, '').split(',');
             }
             if (helper.isArray(values)) {
-                this.options.field = this.options.field ? helper.extend(this.options.field, values) : values;
+                this.options.field = values;
             }
             return this;
         } catch (e) {
@@ -190,7 +188,7 @@ class liteQ {
                 return this;
             }
             if (helper.isString(values)) {
-                this.options.alias = this.options.alias ? helper.extend(this.options.alias, values) : values;
+                this.options.alias = values;
             }
             return this;
         } catch (e) {
@@ -217,7 +215,7 @@ class liteQ {
                 return this;
             }
             if (helper.isObject(values)) {
-                this.options.where = this.options.where ? helper.extend(this.options.where, values) : values;
+                this.options.where = values;
             }
             return this;
         } catch (e) {
@@ -253,7 +251,7 @@ class liteQ {
             }
             skip = helper.toInt(skip);
             limit = helper.toInt(limit);
-            this.options.limit = this.options.limit ? helper.extend(this.options.limit, [skip, limit]) : [skip, limit];
+            this.options.limit = [skip, limit];
             return this;
         } catch (e) {
             return this.error(e);
@@ -272,7 +270,7 @@ class liteQ {
                 return this;
             }
             if (helper.isObject(values)) {
-                this.options.order = this.options.order ? helper.extend(this.options.order, values) : values;
+                this.options.order = values;
             }
             return this;
         } catch (e) {
@@ -292,7 +290,7 @@ class liteQ {
                 return this;
             }
             if (helper.isArray(values)) {
-                this.options.distinct = this.options.distinct ? helper.extend(this.options.distinct, values) : values;
+                this.options.distinct = values;
             }
             return this;
         } catch (e) {
@@ -313,7 +311,7 @@ class liteQ {
                 return this;
             }
             if (helper.isString(values) || helper.isArray(values)) {
-                this.options.group = this.options.group ? helper.extend(this.options.group, values) : values;
+                this.options.group = values;
             }
             return this;
         } catch (e) {
@@ -333,7 +331,7 @@ class liteQ {
                 return this;
             }
             if (helper.isObject(values)) {
-                this.options.having = this.options.having ? helper.extend(this.options.having, values) : values;
+                this.options.having = values;
             }
             return this;
         } catch (e) {
@@ -355,7 +353,7 @@ class liteQ {
                 return this;
             }
             if (helper.isArray(values)) {
-                this.options.join = this.options.join ? helper.extend(this.options.join, values) : values;
+                this.options.join = values;
             }
             return this;
         } catch (e) {
@@ -598,43 +596,6 @@ class liteQ {
      */
     async sql(options = {}, data) {
         try {
-            switch (options.method) {
-                case 'find':
-                    options.limit = [0, 1];
-                    options.method = 'SELECT';
-                    break;
-                case 'select':
-                    options.method = 'SELECT';
-                    break;
-                case 'add':
-                    options.method = 'ADD';
-                    break;
-                case 'update':
-                    options.method = 'UPDATE';
-                    break;
-                case 'count':
-                    options.method = 'COUNT';
-                    break;
-                case 'sum':
-                    options.method = 'SUM';
-                    break;
-                case 'decrement':
-                    options.method = 'DECREMENT';
-                    break;
-                case 'increment':
-                    options.method = 'INCREMENT';
-                    break;
-                default:
-                    options.method = 'SELECT';
-                    break;
-            }
-
-            if (['ADD', 'UPDATE'].includes(options.method) && helper.isEmpty(data)) {
-                return this.error('paramer data is empty');
-            }
-            if (['COUNT', 'SUM', 'DECREMENT', 'INCREMENT'].includes(options.method) && helper.isEmpty(data)) {
-                return this.error('paramer field is empty');
-            }
             let parsedOptions = helper.parseOptions(this, options);
             let instance = await this.getInstance();
             let result = await instance.sql(parsedOptions, data);
@@ -676,17 +637,31 @@ class liteQ {
      * @memberof liteQ
      */
     async transaction(fn) {
-        let instance = await this.getInstance(true);
+        const instance = await this.getInstance(true);
+        const trx = await instance.knexClient.transaction();
         try {
+            instance.knexClient = trx;
             let result = await fn(instance);
-            await instance.knexClient.commit();
+            await trx.commit();
             return result;
         } catch (e) {
-            await instance.knexClient.rollback();
+            await trx.rollback();
             return this.error(e);
         } finally {
+            await instance.close();
             this.instance = null;
         }
+    }
+
+    /**
+     * 事务查询锁
+     *
+     * @param {*} tsx
+     * @memberof liteQ
+     */
+    forUpdate(tsx) {
+        this.instance.knexClient.transacting(tsx).forUpdate();
+        return this;
     }
 
     /**
