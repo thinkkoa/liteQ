@@ -375,9 +375,16 @@ class liteQ {
             }
             let parsedOptions = helper.parseOptions(this, options);
             let instance = await this.getInstance();
-            let result = await instance.add(data, parsedOptions);
-            data[this.pk] = data[this.pk] ? data[this.pk] : result;
-            return data[this.pk] || 0;
+            let result;
+            if (helper.isArray(data)) {
+                result = await instance.batchAdd(data, parsedOptions);
+                return result || [];
+            } else {
+                result = await instance.add(data, parsedOptions);
+                data[this.pk] = data[this.pk] ? data[this.pk] : result;
+                return data[this.pk] || 0;
+            }
+
         } catch (e) {
             return this.error(e);
         }
