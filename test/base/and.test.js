@@ -31,7 +31,7 @@ describe('Query Generation ::', function () {
                         query: {
                             where: { firstName: 'foo', lastName: 'bar' }
                         },
-                        sql: "select `id` from `think_user` as `User` where `User`.`firstName` = 'foo' and `User`.`lastName` = 'bar'"
+                        sql: "select `User`.`id` from `think_user` as `User` where `User`.`firstName` = 'foo' and `User`.`lastName` = 'bar'"
                     },
                     {
                         dialect: 'postgresql',
@@ -55,7 +55,7 @@ describe('Query Generation ::', function () {
                         query: {
                             where: { firstName: 'foo', lastName: 'bar' }
                         },
-                        sql: "select \"id\" from \"think_user\" as \"User\" where \"User\".\"firstName\" = 'foo' and \"User\".\"lastName\" = 'bar'"
+                        sql: "select \"User\".\"id\" from \"think_user\" as \"User\" where \"User\".\"firstName\" = 'foo' and \"User\".\"lastName\" = 'bar'"
                     }
                 ]
             }, done);
@@ -87,7 +87,7 @@ describe('Query Generation ::', function () {
                         query: {
                             where: { age: { '>': 10, '<=': 80 } }
                         },
-                        sql: "select `id` from `think_user` as `User` where `User`.`age` > 10 and `User`.`age` <= 80"
+                        sql: "select `User`.`id` from `think_user` as `User` where `User`.`age` > 10 and `User`.`age` <= 80"
                     },
                     {
                         dialect: 'postgresql',
@@ -112,7 +112,7 @@ describe('Query Generation ::', function () {
                         query: {
                             where: { age: { '>': 10, '<=': 80 } }
                         },
-                        sql: "select \"id\" from \"think_user\" as \"User\" where \"User\".\"age\" > 10 and \"User\".\"age\" <= 80"
+                        sql: "select \"User\".\"id\" from \"think_user\" as \"User\" where \"User\".\"age\" > 10 and \"User\".\"age\" <= 80"
                     }
                 ]
             }, done);

@@ -30,7 +30,7 @@ describe('Query Generation ::', function () {
                         query: {
                             where: { notin: { 'id': [1, 2, 3] } }
                         },
-                        sql: "select `id` from `think_user` as `User` where `User`.`id` not in (1, 2, 3)"
+                        sql: "select `User`.`id` from `think_user` as `User` where `User`.`id` not in (1, 2, 3)"
                     },
                     {
                         dialect: 'postgresql',
@@ -54,7 +54,7 @@ describe('Query Generation ::', function () {
                         query: {
                             where: { notin: { 'id': [1, 2, 3] } }
                         },
-                        sql: "select \"id\" from \"think_user\" as \"User\" where \"User\".\"id\" not in (1, 2, 3)"
+                        sql: "select \"User\".\"id\" from \"think_user\" as \"User\" where \"User\".\"id\" not in (1, 2, 3)"
                     }
                 ]
             }, done);

@@ -20,7 +20,7 @@ describe('Query Generation ::', function () {
                             db_pwd: '',
                             db_prefix: 'think_',
                             db_charset: 'utf8',
-                            db_ext_config: {safe: true, db_log_sql: true, db_pool_size: 10}
+                            db_ext_config: { safe: true, db_log_sql: true, db_pool_size: 10 }
                         },
                         options: {
                             table: 'think_user',
@@ -28,11 +28,11 @@ describe('Query Generation ::', function () {
                             method: 'SUM',
                             targetField: 'id'
                         },
-                        parser:baseparser,
+                        parser: baseparser,
                         query: {
-                            where: {id: {'>=': 0}}
+                            where: { id: { '>=': 0 } }
                         },
-                        sql: "select sum(`id`) as `sum` from `think_user` as `User` where `User`.`id` >= 0"
+                        sql: "select sum(`User`.`id`) as `sum` from `think_user` as `User` where `User`.`id` >= 0"
                     },
                     {
                         dialect: 'postgresql',
@@ -45,7 +45,7 @@ describe('Query Generation ::', function () {
                             db_pwd: '',
                             db_prefix: 'think_',
                             db_charset: 'utf8',
-                            db_ext_config: {safe: true, db_log_sql: true, db_pool_size: 10}
+                            db_ext_config: { safe: true, db_log_sql: true, db_pool_size: 10 }
                         },
                         options: {
                             table: 'think_user',
@@ -53,11 +53,11 @@ describe('Query Generation ::', function () {
                             method: 'SUM',
                             targetField: 'id'
                         },
-                        parser:baseparser,
+                        parser: baseparser,
                         query: {
-                            where: {id: {'>=': 0}}
+                            where: { id: { '>=': 0 } }
                         },
-                        sql: 'select sum("id") as "sum" from "think_user" as "User" where "User"."id" >= 0'
+                        sql: 'select sum("User"."id") as "sum" from "think_user" as "User" where "User"."id" >= 0'
                     },
                 ]
             }, done);

@@ -30,7 +30,7 @@ describe('Query Generation ::', function () {
                         query: {
                             where: { not: { firstName: 'foo', lastName: 'bar' } }
                         },
-                        sql: "select `id` from `think_user` as `User` where not (`User`.`firstName` = 'foo' and `User`.`lastName` = 'bar')"
+                        sql: "select `User`.`id` from `think_user` as `User` where not (`User`.`firstName` = 'foo' and `User`.`lastName` = 'bar')"
                     },
                     {
                         dialect: 'postgresql',
@@ -54,7 +54,7 @@ describe('Query Generation ::', function () {
                         query: {
                             where: { not: { firstName: 'foo', lastName: 'bar' } }
                         },
-                        sql: "select \"id\" from \"think_user\" as \"User\" where not (\"User\".\"firstName\" = 'foo' and \"User\".\"lastName\" = 'bar')"
+                        sql: "select \"User\".\"id\" from \"think_user\" as \"User\" where not (\"User\".\"firstName\" = 'foo' and \"User\".\"lastName\" = 'bar')"
                     }
                 ]
             }, done);
