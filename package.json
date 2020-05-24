@@ -38,7 +38,7 @@
   },
   "dependencies": {
     "co": "^4.6.0",
-    "knex": "^0.20.10",
+    "knex": "^0.21.0",
     "think_lib": "^2.x.x",
     "think_logger": "^2.x.x"
   },
